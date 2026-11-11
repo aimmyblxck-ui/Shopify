@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Shopify - Luxury Ecommerce Website
 
@@ -132,3 +133,5 @@ Developed as a Django Ecommerce Project.
 ## License
 
 This project is available for educational and personal development purposes.
+=======
+#
