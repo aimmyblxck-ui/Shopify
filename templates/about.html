@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About Us — Shopify{% endblock %}
+
+{% block content %}
+<section class="relative h-[70vh] min-h-[420px] overflow-hidden">
+  <img src="https://picsum.photos/seed/aboutHero/1920/1080" alt="Our studio" class="absolute inset-0 w-full h-full object-cover">
+  <div class="hero-overlay"></div>
+  <div class="relative h-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col justify-end pb-16">
+    <p class="eyebrow text-paper/80">About us</p>
+    <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tighter text-paper max-w-3xl leading-[0.95]">Designed with intent. Made to last.</h1>
+  </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-24 grid lg:grid-cols-2 gap-16">
+  <div class="reveal"><p class="eyebrow">Our story</p><h2 class="section-title">From a small studio to a global wardrobe.</h2></div>
+  <div class="space-y-5 text-black/70 leading-relaxed reveal">
+    <p>Founded in 2018, Shopify started with a single belief: that everyday clothing should feel considered. We began with ten pieces, a tiny studio and an obsession with fabric.</p>
+    <p>Today we work with family-run mills across Portugal and Italy, producing small batches that respect both the craft and the planet.</p>
+  </div>
+</section>
+
+<section class="bg-ink text-paper">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-24 grid sm:grid-cols-3 gap-12">
+    <div class="sm:col-span-3"><p class="eyebrow text-paper/60">Our mission</p><h2 class="text-3xl sm:text-5xl font-extrabold tracking-tighter max-w-3xl">Fewer, better things — for everyone.</h2></div>
+    <div><p class="text-5xl font-extrabold text-accent">120k+</p><p class="text-paper/60 mt-2">Happy customers</p></div>
+    <div><p class="text-5xl font-extrabold text-accent">40</p><p class="text-paper/60 mt-2">Countries shipped</p></div>
+    <div><p class="text-5xl font-extrabold text-accent">100%</p><p class="text-paper/60 mt-2">Traceable materials</p></div>
+  </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-24">
+  <div class="section-head"><div><p class="eyebrow">The people</p><h2 class="section-title">Meet the Team</h2></div></div>
+  <div class="grid sm:grid-cols-3 gap-6">
+      <div class="team-card reveal">
+        <div class="overflow-hidden"><img src="https://picsum.photos/seed/team0/600/750" alt="Amara Okafor" loading="lazy"></div>
+        <h3 class="font-semibold mt-4">Amara Okafor</h3><p class="text-sm text-black/50">Founder & Creative Director</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="overflow-hidden"><img src="https://picsum.photos/seed/team1/600/750" alt="Lucas Meyer" loading="lazy"></div>
+        <h3 class="font-semibold mt-4">Lucas Meyer</h3><p class="text-sm text-black/50">Head of Design</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="overflow-hidden"><img src="https://picsum.photos/seed/team2/600/750" alt="Sofia Laurent" loading="lazy"></div>
+        <h3 class="font-semibold mt-4">Sofia Laurent</h3><p class="text-sm text-black/50">Operations Lead</p>
+      </div>
+  </div>
+</section>
+{% endblock %}

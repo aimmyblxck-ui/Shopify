@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Shopify — New Collection 2026{% endblock %}
+
+{% block content %}
+<!-- ===== Hero slider ===== -->
+<section class="hero" id="hero-slider">
+
+      <div class="hero-slide active">
+        <img src="https://picsum.photos/seed/fashion1/1920/1080" alt="New Collection 2026">
+        <div class="hero-overlay"></div>
+        <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6">
+          <p class="eyebrow text-paper/80">Spring / Summer</p>
+          <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tighter text-paper leading-[0.95] max-w-3xl">New Collection 2026</h1>
+          <p class="text-paper/80 mt-6 max-w-md text-lg">Effortless silhouettes for the new season.</p>
+          <a href="{% url 'products' %}" class="btn-light mt-8">Shop Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+      <div class="hero-slide">
+        <img src="https://picsum.photos/seed/fashion2/1920/1080" alt="The Essentials Edit">
+        <div class="hero-overlay"></div>
+        <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6">
+          <p class="eyebrow text-paper/80">Spring / Summer</p>
+          <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tighter text-paper leading-[0.95] max-w-3xl">The Essentials Edit</h1>
+          <p class="text-paper/80 mt-6 max-w-md text-lg">Timeless pieces, built to last.</p>
+          <a href="{% url 'products' %}" class="btn-light mt-8">Shop Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+      <div class="hero-slide">
+        <img src="https://picsum.photos/seed/fashion3/1920/1080" alt="Step Into Spring">
+        <div class="hero-overlay"></div>
+        <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6">
+          <p class="eyebrow text-paper/80">Spring / Summer</p>
+          <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tighter text-paper leading-[0.95] max-w-3xl">Step Into Spring</h1>
+          <p class="text-paper/80 mt-6 max-w-md text-lg">Footwear designed for the city.</p>
+          <a href="{% url 'products' %}" class="btn-light mt-8">Shop Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+  <div class="hero-dots">
+    <button class="hero-dot active" aria-label="Slide 1"></button>
+    <button class="hero-dot" aria-label="Slide 2"></button>
+    <button class="hero-dot" aria-label="Slide 3"></button>
+  </div>
+</section>
+
+<!-- ===== Featured categories ===== -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+  <div class="section-head">
+    <div><p class="eyebrow">Explore</p><h2 class="section-title">Shop by Category</h2></div>
+  </div>
+  <div class="grid gap-4 sm:grid-cols-3">
+      <a href="{% url 'products' %}" class="category-card reveal">
+        <img src="https://picsum.photos/seed/catClothing/800/1000" alt="Clothing" loading="lazy">
+        <div class="category-overlay"></div>
+        <div class="absolute bottom-0 left-0 p-8 text-paper">
+          <h3 class="text-3xl font-bold">Clothing</h3>
+          <span class="text-sm underline underline-offset-4 mt-2 inline-block">Shop now</span>
+        </div>
+      </a>
+      <a href="{% url 'products' %}" class="category-card reveal">
+        <img src="https://picsum.photos/seed/catShoes/800/1000" alt="Shoes" loading="lazy">
+        <div class="category-overlay"></div>
+        <div class="absolute bottom-0 left-0 p-8 text-paper">
+          <h3 class="text-3xl font-bold">Shoes</h3>
+          <span class="text-sm underline underline-offset-4 mt-2 inline-block">Shop now</span>
+        </div>
+      </a>
+      <a href="{% url 'products' %}" class="category-card reveal">
+        <img src="https://picsum.photos/seed/catAccessories/800/1000" alt="Accessories" loading="lazy">
+        <div class="category-overlay"></div>
+        <div class="absolute bottom-0 left-0 p-8 text-paper">
+          <h3 class="text-3xl font-bold">Accessories</h3>
+          <span class="text-sm underline underline-offset-4 mt-2 inline-block">Shop now</span>
+        </div>
+      </a>
+  </div>
+</section>
+
+{% comment %} <!-- ===== Featured products ===== -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+  <div class="section-head">
+    <div><p class="eyebrow">Trending now</p><h2 class="section-title">Featured Products</h2></div>
+    <a href="{% url 'products' %}" class="link-arrow">View all <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+  </div>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10">
+        {# DJANGO LOOP: {% for product in products %} #}
+        {# PRODUCT CARD: replace static values with {{ product.name }}, {{ product.price }}, {{ product.image.url }} #}
+        <article class="product-card reveal">
+          <a href="{% url 'product_detail' %}" class="product-media">
+            {# Django: src="{{ product.image.url }}"  |  media placeholder: /media/products/product1.jpg #}
+            <img src="https://picsum.photos/seed/shop1a/600/800" data-media="/media/products/product1.jpg" alt="Oversized Wool Coat" class="img-primary" loading="lazy">
+            <img src="https://picsum.photos/seed/shop1b/600/800" alt="Oversized Wool Coat alternate view" class="img-secondary" loading="lazy">
+            <span class="badge">Clothing</span>
+          </a>
+          <button class="add-to-cart-btn" data-add-to-cart data-name="Oversized Wool Coat" aria-label="Add Oversized Wool Coat to cart"><i data-lucide="shopping-bag"></i></button>
+          <div class="product-info">
+            <a href="{% url 'product_detail' %}"><h3>Oversized Wool Coat</h3></a>
+            <p><span class="price">$189.00</span> <span class="price-old">$249.00</span></p>
+          </div>
+        </article>
+        {# PRODUCT CARD: replace static values with {{ product.name }}, {{ product.price }}, {{ product.image.url }} #}
+        <article class="product-card reveal">
+          <a href="{% url 'product_detail' %}" class="product-media">
+            {# Django: src="{{ product.image.url }}"  |  media placeholder: /media/products/product2.jpg #}
+            <img src="https://picsum.photos/seed/shop2a/600/800" data-media="/media/products/product2.jpg" alt="Leather Chelsea Boots" class="img-primary" loading="lazy">
+            <img src="https://picsum.photos/seed/shop2b/600/800" alt="Leather Chelsea Boots alternate view" class="img-secondary" loading="lazy">
+            <span class="badge">Shoes</span>
+          </a>
+          <button class="add-to-cart-btn" data-add-to-cart data-name="Leather Chelsea Boots" aria-label="Add Leather Chelsea Boots to cart"><i data-lucide="shopping-bag"></i></button>
+          <div class="product-info">
+            <a href="{% url 'product_detail' %}"><h3>Leather Chelsea Boots</h3></a>
+            <p><span class="price">$159.00</span> </p>
+          </div>
+        </article>
+        {# PRODUCT CARD: replace static values with {{ product.name }}, {{ product.price }}, {{ product.image.url }} #}
+        <article class="product-card reveal">
+          <a href="{% url 'product_detail' %}" class="product-media">
+            {# Django: src="{{ product.image.url }}"  |  media placeholder: /media/products/product3.jpg #}
+            <img src="https://picsum.photos/seed/shop3a/600/800" data-media="/media/products/product3.jpg" alt="Minimal Leather Tote" class="img-primary" loading="lazy">
+            <img src="https://picsum.photos/seed/shop3b/600/800" alt="Minimal Leather Tote alternate view" class="img-secondary" loading="lazy">
+            <span class="badge">Accessories</span>
+          </a>
+          <button class="add-to-cart-btn" data-add-to-cart data-name="Minimal Leather Tote" aria-label="Add Minimal Leather Tote to cart"><i data-lucide="shopping-bag"></i></button>
+          <div class="product-info">
+            <a href="{% url 'product_detail' %}"><h3>Minimal Leather Tote</h3></a>
+            <p><span class="price">$129.00</span> <span class="price-old">$159.00</span></p>
+          </div>
+        </article>
+        {# PRODUCT CARD: replace static values with {{ product.name }}, {{ product.price }}, {{ product.image.url }} #}
+        <article class="product-card reveal">
+          <a href="{% url 'product_detail' %}" class="product-media">
+            {# Django: src="{{ product.image.url }}"  |  media placeholder: /media/products/product4.jpg #}
+            <img src="https://picsum.photos/seed/shop4a/600/800" data-media="/media/products/product4.jpg" alt="Relaxed Linen Shirt" class="img-primary" loading="lazy">
+            <img src="https://picsum.photos/seed/shop4b/600/800" alt="Relaxed Linen Shirt alternate view" class="img-secondary" loading="lazy">
+            <span class="badge">Clothing</span>
+          </a>
+          <button class="add-to-cart-btn" data-add-to-cart data-name="Relaxed Linen Shirt" aria-label="Add Relaxed Linen Shirt to cart"><i data-lucide="shopping-bag"></i></button>
+          <div class="product-info">
+            <a href="{% url 'product_detail' %}"><h3>Relaxed Linen Shirt</h3></a>
+            <p><span class="price">$69.00</span> </p>
+          </div>
+        </article>
+        {# PRODUCT CARD: replace static values with {{ product.name }}, {{ product.price }}, {{ product.image.url }} #}
+        <article class="product-card reveal">
+          <a href="{% url 'product_detail' %}" class="product-media">
+            {# Django: src="{{ product.image.url }}"  |  media placeholder: /media/products/product5.jpg #}
+            <img src="https://picsum.photos/seed/shop5a/600/800" data-media="/media/products/product5.jpg" alt="Court Classic Sneaker" class="img-primary" loading="lazy">
+            <img src="https://picsum.photos/seed/shop5b/600/800" alt="Court Classic Sneaker alternate view" class="img-secondary" loading="lazy">
+            <span class="badge">Shoes</span>
+          </a>
+          <button class="add-to-cart-btn" data-add-to-cart data-name="Court Classic Sneaker" aria-label="Add Court Classic Sneaker to cart"><i data-lucide="shopping-bag"></i></button>
+          <div class="product-info">
+            <a href="{% url 'product_detail' %}"><h3>Court Classic Sneaker</h3></a>
+            <p><span class="price">$119.00</span> <span class="price-old">$139.00</span></p>
+          </div>
+        </article>
+        {# PRODUCT CARD: replace static values with {{ product.name }}, {{ product.price }}, {{ product.image.url }} #}
+        <article class="product-card reveal">
+          <a href="{% url 'product_detail' %}" class="product-media">
+            {# Django: src="{{ product.image.url }}"  |  media placeholder: /media/products/product6.jpg #}
+            <img src="https://picsum.photos/seed/shop6a/600/800" data-media="/media/products/product6.jpg" alt="Silver Link Bracelet" class="img-primary" loading="lazy">
+            <img src="https://picsum.photos/seed/shop6b/600/800" alt="Silver Link Bracelet alternate view" class="img-secondary" loading="lazy">
+            <span class="badge">Accessories</span>
+          </a>
+          <button class="add-to-cart-btn" data-add-to-cart data-name="Silver Link Bracelet" aria-label="Add Silver Link Bracelet to cart"><i data-lucide="shopping-bag"></i></button>
+          <div class="product-info">
+            <a href="{% url 'product_detail' %}"><h3>Silver Link Bracelet</h3></a>
+            <p><span class="price">$49.00</span> </p>
+          </div>
+        </article>
+        {# PRODUCT CARD: replace static values with {{ product.name }}, {{ product.price }}, {{ product.image.url }} #}
+        <article class="product-card reveal">
+          <a href="{% url 'product_detail' %}" class="product-media">
+            {# Django: src="{{ product.image.url }}"  |  media placeholder: /media/products/product7.jpg #}
+            <img src="https://picsum.photos/seed/shop7a/600/800" data-media="/media/products/product7.jpg" alt="Pleated Wide Trousers" class="img-primary" loading="lazy">
+            <img src="https://picsum.photos/seed/shop7b/600/800" alt="Pleated Wide Trousers alternate view" class="img-secondary" loading="lazy">
+            <span class="badge">Clothing</span>
+          </a>
+          <button class="add-to-cart-btn" data-add-to-cart data-name="Pleated Wide Trousers" aria-label="Add Pleated Wide Trousers to cart"><i data-lucide="shopping-bag"></i></button>
+          <div class="product-info">
+            <a href="{% url 'product_detail' %}"><h3>Pleated Wide Trousers</h3></a>
+            <p><span class="price">$89.00</span> <span class="price-old">$109.00</span></p>
+          </div>
+        </article>
+        {# PRODUCT CARD: replace static values with {{ product.name }}, {{ product.price }}, {{ product.image.url }} #}
+        <article class="product-card reveal">
+          <a href="{% url 'product_detail' %}" class="product-media">
+            {# Django: src="{{ product.image.url }}"  |  media placeholder: /media/products/product8.jpg #}
+            <img src="https://picsum.photos/seed/shop8a/600/800" data-media="/media/products/product8.jpg" alt="Suede Loafers" class="img-primary" loading="lazy">
+            <img src="https://picsum.photos/seed/shop8b/600/800" alt="Suede Loafers alternate view" class="img-secondary" loading="lazy">
+            <span class="badge">Shoes</span>
+          </a>
+          <button class="add-to-cart-btn" data-add-to-cart data-name="Suede Loafers" aria-label="Add Suede Loafers to cart"><i data-lucide="shopping-bag"></i></button>
+          <div class="product-info">
+            <a href="{% url 'product_detail' %}"><h3>Suede Loafers</h3></a>
+            <p><span class="price">$139.00</span> </p>
+          </div>
+        </article>
+        {# DJANGO LOOP END: {% endfor %} #}
+  </div>
+</section> {% endcomment %}
+
+<!-- ===== Featured products ===== -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+
+    <div class="section-head">
+        <div>
+            <p class="eyebrow">Trending now</p>
+            <h2 class="section-title">Featured Products</h2>
+        </div>
+
+        <a href="{% url 'products' %}" class="link-arrow">
+            View all
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10">
+
+        {% for product in featured_products %}
+
+            <article class="product-card reveal">
+
+                <a href="{% url 'product_detail' product.slug %}"
+                   class="product-media">
+
+                    {% if product.image %}
+                        <img
+                            src="{{ product.image.url }}"
+                            alt="{{ product.name }}"
+                            class="img-primary"
+                            loading="lazy"
+                        >
+                    {% else %}
+                        <img
+                            src="https://picsum.photos/seed/product/600/800"
+                            alt="{{ product.name }}"
+                            class="img-primary"
+                            loading="lazy"
+                        >
+                    {% endif %}
+
+                    <span class="badge">
+                        {{ product.category.name }}
+                    </span>
+
+                </a>
+
+                <div class="product-info">
+
+                    <a href="{% url 'product_detail' product.slug %}">
+                        <h3>{{ product.name }}</h3>
+                    </a>
+
+                    <p>
+                        <span class="price">
+                            ₦{{ product.price|floatformat:2 }}
+                        </span>
+                    </p>
+
+                    {% if product.stock > 0 %}
+                        <span class="text-sm text-green-600">
+                            In stock
+                        </span>
+                    {% else %}
+                        <span class="text-sm text-red-600">
+                            Out of stock
+                        </span>
+                    {% endif %}
+
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <div class="col-span-full text-center py-10">
+                <h3 class="text-xl font-semibold">
+                    No products available yet.
+                </h3>
+
+                <p class="text-black/60 mt-2">
+                    Please check back soon.
+                </p>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- ===== Why us ===== -->
+<section class="bg-mist">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-20 grid gap-12 sm:grid-cols-3 text-center">
+    <div class="reveal"><div class="feature-icon"><i data-lucide="truck"></i></div><h3 class="font-semibold text-lg">Free Shipping</h3><p class="text-sm text-black/60 mt-2">On all orders over $50, delivered in 2–4 days.</p></div>
+    <div class="reveal"><div class="feature-icon"><i data-lucide="shield-check"></i></div><h3 class="font-semibold text-lg">Secure Payment</h3><p class="text-sm text-black/60 mt-2">256-bit SSL encryption on every checkout.</p></div>
+    <div class="reveal"><div class="feature-icon"><i data-lucide="rotate-ccw"></i></div><h3 class="font-semibold text-lg">Easy Returns</h3><p class="text-sm text-black/60 mt-2">30-day hassle-free returns, no questions asked.</p></div>
+  </div>
+</section>
+{% endblock %}

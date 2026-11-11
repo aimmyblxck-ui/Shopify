@@ -1,0 +1,169 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Your Cart — Shopify{% endblock %}
+
+{% block content %}
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tighter mb-10">
+        Shopping Cart
+    </h1>
+
+    {% if cart_items %}
+
+    <div class="grid lg:grid-cols-[1fr_380px] gap-10">
+
+        <!-- Cart Products -->
+        <div class="overflow-x-auto">
+
+            <table class="cart-table w-full">
+
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for item in cart_items %}
+
+                    <tr class="cart-row">
+
+                        <!-- Product -->
+                        <td>
+                            <div class="flex items-center gap-4">
+
+                                {% if item.product.image %}
+                                <img
+                                    src="{{ item.product.image.url }}"
+                                    alt="{{ item.product.name }}"
+                                    class="w-20 h-24 object-cover bg-mist"
+                                >
+                                {% endif %}
+
+                                <div>
+                                    <a href="{% url 'product_detail' item.product.slug %}"
+                                       class="font-semibold">
+                                        {{ item.product.name }}
+                                    </a>
+
+                                    <p class="text-xs text-black/50 mt-1">
+                                        {{ item.product.category.name }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <!-- Price -->
+                        <td>
+                            ₦{{ item.product.price|floatformat:2 }}
+                        </td>
+
+                        <!-- Quantity -->
+                        <td>
+                            {{ item.quantity }}
+                        </td>
+
+                        <!-- Subtotal -->
+                        <td class="font-semibold">
+                            ₦{{ item.subtotal|floatformat:2 }}
+                        </td>
+
+                        <!-- Remove -->
+                        <td class="text-right">
+                            <form method="POST"
+                                  action="{% url 'cart_remove' item.product.id %}">
+                                {% csrf_token %}
+
+                                <button type="submit"
+                                        class="remove-btn"
+                                        aria-label="Remove product">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <a href="{% url 'products' %}" class="link-arrow mt-6">
+                Continue shopping
+            </a>
+
+        </div>
+
+        <!-- Order Summary -->
+        <aside class="summary-box">
+
+            <h2 class="text-lg font-bold mb-6">
+                Order Summary
+            </h2>
+
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <span>₦{{ cart_total|floatformat:2 }}</span>
+            </div>
+
+            <div class="summary-line">
+                <span>Shipping</span>
+                <span class="text-green-600 font-medium">Free</span>
+            </div>
+
+            <div class="summary-line total">
+                <span>Total</span>
+                <span>₦{{ cart_total|floatformat:2 }}</span>
+            </div>
+
+            <a href="{% url 'checkout' %}"
+               class="btn-primary w-full h-14 mt-6">
+                Proceed to Checkout
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+
+            <p class="flex items-center justify-center gap-2 text-xs text-black/50 mt-4">
+                <i data-lucide="lock" class="w-3 h-3"></i>
+                Secure checkout
+            </p>
+
+        </aside>
+
+    </div>
+
+    {% else %}
+
+    <!-- Empty Cart -->
+    <div class="empty-cart text-center">
+
+        <h2 class="text-2xl font-bold">
+            Your cart is empty
+        </h2>
+
+        <p class="text-black/60 mt-2">
+            Looks like you haven't added anything yet.
+        </p>
+
+        <a href="{% url 'products' %}" class="btn-primary mt-8">
+            Start Shopping
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Checkout — Shopify{% endblock %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+  <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tighter mb-10">Checkout</h1>
+  <form id="checkout-form" class="grid lg:grid-cols-[1fr_420px] gap-10" novalidate>
+    {# {% csrf_token %} #}
+    <div class="space-y-10">
+      <fieldset>
+        <legend class="step-title"><span>1</span> Contact Information</legend>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="sm:col-span-2 form-group"><label for="name">Full Name</label><input id="name" class="field" required placeholder="Jane Doe"><p class="error-msg">Please enter your name</p></div>
+          <div class="form-group"><label for="email">Email</label><input id="email" type="email" class="field" required placeholder="jane@email.com"><p class="error-msg">Please enter a valid email</p></div>
+          <div class="form-group"><label for="phone">Phone</label><input id="phone" type="tel" class="field" required placeholder="+1 555 000 0000"><p class="error-msg">Please enter your phone</p></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend class="step-title"><span>2</span> Delivery Address</legend>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="sm:col-span-2 form-group"><label for="address">Delivery Address</label><input id="address" class="field" required placeholder="Street and house number"><p class="error-msg">Please enter your address</p></div>
+          <div class="form-group"><label for="city">City</label><input id="city" class="field" required placeholder="New York"><p class="error-msg">Required</p></div>
+          <div class="form-group"><label for="zip">Zip Code</label><input id="zip" class="field" required placeholder="10001"><p class="error-msg">Required</p></div>
+          <div class="sm:col-span-2 form-group"><label for="country">Country</label>
+            <select id="country" class="field" required>
+              <option value="">Select a country</option><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Nigeria</option><option>Germany</option><option>France</option><option>Australia</option>
+            </select><p class="error-msg">Please select a country</p></div>
+          <div class="sm:col-span-2 form-group"><label for="notes">Order Notes <span class="text-black/40 font-normal">(optional)</span></label><textarea id="notes" rows="4" class="field" placeholder="Delivery instructions..."></textarea></div>
+        </div>
+      </fieldset>
+    </div>
+
+    <aside class="summary-box self-start lg:sticky lg:top-24">
+      <h2 class="text-lg font-bold mb-6">Order Summary</h2>
+      {# DJANGO LOOP: {% for item in cart_items %} #}
+      <div class="flex gap-4 items-center py-3">
+        <div class="relative"><img src="https://picsum.photos/seed/shop1a/200/250" alt="" class="w-16 h-20 object-cover bg-paper"><span class="qty-pill">1</span></div>
+        <div class="flex-1"><p class="font-medium text-sm">Oversized Wool Coat</p><p class="text-xs text-black/50">Camel · M</p></div><span class="font-semibold text-sm">$189.00</span>
+      </div>
+      <div class="flex gap-4 items-center py-3">
+        <div class="relative"><img src="https://picsum.photos/seed/shop2a/200/250" alt="" class="w-16 h-20 object-cover bg-paper"><span class="qty-pill">1</span></div>
+        <div class="flex-1"><p class="font-medium text-sm">Leather Chelsea Boots</p><p class="text-xs text-black/50">Black · 42</p></div><span class="font-semibold text-sm">$159.00</span>
+      </div>
+      {# {% endfor %} #}
+      <div class="border-t border-black/10 mt-4 pt-4">
+        <div class="summary-line"><span>Subtotal</span><span>$348.00</span></div>
+        <div class="summary-line"><span>Shipping</span><span class="text-green-600 font-medium">Free</span></div>
+        <div class="summary-line total"><span>Total</span><span>$348.00</span></div>
+      </div>
+      <button type="submit" class="btn-primary w-full h-14 mt-6">Place Order</button>
+      <p class="flex items-center justify-center gap-2 text-xs text-black/50 mt-4"><i data-lucide="lock" class="w-3 h-3"></i> Payments are encrypted and secure</p>
+    </aside>
+  </form>
+</section>
+{% endblock %}

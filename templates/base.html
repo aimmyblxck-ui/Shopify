@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Shopify — Modern Fashion Store{% endblock %}</title>
+  <meta name="description" content="{% block description %}Premium fashion, shoes and accessories.{% endblock %}">
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { ink: '#111111', paper: '#FFFFFF', accent: '#FF3F00', mist: '#F5F5F5' },
+      fontFamily: { sans: ['Inter', 'sans-serif'] }
+    } } }
+  </script>
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="font-sans bg-paper text-ink antialiased">
+
+  <!-- ===== Announcement bar ===== -->
+  <div class="bg-ink text-paper text-xs tracking-widest uppercase text-center py-2.5">
+    Free Delivery on orders over $50
+  </div>
+
+  <!-- ===== Sticky navbar ===== -->
+  <header id="navbar" class="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-black/5 transition-shadow">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <button id="menu-toggle" class="lg:hidden p-2 -ml-2" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a href="{% url 'home' %}" class="text-xl font-extrabold tracking-tight">SHOPIFY<span class="text-accent">.</span></a>
+      <ul class="hidden lg:flex items-center gap-10 text-sm font-medium">
+        <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+        <li><a href="{% url 'products' %}" class="nav-link">Shop</a></li>
+        <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+        <li><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-1 sm:gap-3">
+        <button id="search-toggle" class="icon-btn" aria-label="Search"><i data-lucide="search"></i></button>
+        <a href="{% url 'cart' %}" class="icon-btn relative" aria-label="Cart">
+          <i data-lucide="shopping-bag"></i>
+          {# Django: {{ cart.count }} #}
+          <span id="cart-badge" class="cart-badge">2</span>
+        </a>
+        <a href="#" class="icon-btn hidden sm:inline-flex" aria-label="Account"><i data-lucide="user"></i></a>
+      </div>
+    </nav>
+    <!-- Search drawer -->
+    <div id="search-bar" class="search-bar">
+      <form action="{% url 'products' %}" method="get" class="max-w-3xl mx-auto px-4 py-4 flex gap-3">
+        <input name="q" type="search" placeholder="Search products..." class="field flex-1">
+        <button class="btn-primary">Search</button>
+      </form>
+    </div>
+  </header>
+
+  <!-- ===== Mobile menu ===== -->
+  <div id="mobile-overlay" class="mobile-overlay"></div>
+  <aside id="mobile-menu" class="mobile-menu">
+    <div class="flex items-center justify-between mb-10">
+      <span class="text-xl font-extrabold">SHOPIFY<span class="text-accent">.</span></span>
+      <button id="menu-close" aria-label="Close menu"><i data-lucide="x"></i></button>
+    </div>
+    <ul class="space-y-6 text-2xl font-semibold">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'products' %}">Shop</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Page content ===== -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="bg-ink text-paper/70 mt-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <h4 class="footer-title">Shop</h4>
+        <ul class="footer-links">
+          <li><a href="{% url 'products' %}">New Arrivals</a></li>
+          <li><a href="{% url 'products' %}">Clothing</a></li>
+          <li><a href="{% url 'products' %}">Shoes</a></li>
+          <li><a href="{% url 'products' %}">Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Help</h4>
+        <ul class="footer-links">
+          <li><a href="#">Shipping &amp; Delivery</a></li>
+          <li><a href="#">Returns &amp; Exchanges</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="{% url 'contact' %}">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">About</h4>
+        <ul class="footer-links">
+          <li><a href="{% url 'about' %}">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Newsletter</h4>
+        <p class="text-sm mb-4">Get 10% off your first order and early access to drops.</p>
+        <form class="flex border-b border-paper/30 focus-within:border-paper transition" onsubmit="event.preventDefault(); showToast('Thanks for subscribing!');">
+          {# {% csrf_token %} #}
+          <input type="email" required placeholder="Your email" class="bg-transparent flex-1 py-3 text-sm text-paper placeholder:text-paper/40 outline-none">
+          <button aria-label="Subscribe"><i data-lucide="arrow-right"></i></button>
+        </form>
+        <div class="flex gap-4 mt-6">
+          <a href="#" aria-label="Instagram"><i data-lucide="camera" class="w-5 h-5"></i></a>
+          <a href="#" aria-label="Facebook"><i data-lucide="share-2" class="w-5 h-5"></i></a>
+          <a href="#" aria-label="Twitter"><i data-lucide="at-sign" class="w-5 h-5"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-paper/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row gap-4 items-center justify-between text-xs">
+        <p>&copy; 2026 Shopify. All rights reserved.</p>
+        <!-- Payment icons -->
+        <div class="flex gap-2">
+          <span class="pay-icon">VISA</span><span class="pay-icon">Mastercard</span>
+          <span class="pay-icon">PayPal</span><span class="pay-icon">Apple Pay</span><span class="pay-icon">Stripe</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification container -->
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <i data-lucide="check-circle-2" class="w-5 h-5 text-accent"></i><span id="toast-msg">Added to cart</span>
+  </div>
+
+  <!-- Lucide icons + main JS -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

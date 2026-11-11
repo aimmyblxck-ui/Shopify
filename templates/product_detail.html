@@ -1,0 +1,263 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} — Shopify{% endblock %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a href="{% url 'home' %}">Home</a>
+    <i data-lucide="chevron-right" class="w-3 h-3"></i>
+    <a href="{% url 'products' %}">Shop</a>
+    <i data-lucide="chevron-right" class="w-3 h-3"></i>
+    <span>{{ product.name }}</span>
+  </nav>
+
+  <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 mt-6">
+
+    <!-- ===== Gallery ===== -->
+    <div>
+
+      <div class="main-image">
+
+        {% if product.image %}
+          <img
+            id="main-image"
+            src="{{ product.image.url }}"
+            alt="{{ product.name }}"
+          >
+        {% else %}
+          <img
+            id="main-image"
+            src="https://picsum.photos/seed/{{ product.id }}/1000/1250"
+            alt="{{ product.name }}"
+          >
+        {% endif %}
+
+      </div>
+
+      <!-- Image Thumbnails -->
+      <div class="grid grid-cols-4 gap-3 mt-3">
+
+        <button
+          class="thumb active"
+          type="button"
+          data-thumb="{% if product.image %}{{ product.image.url }}{% else %}https://picsum.photos/seed/{{ product.id }}/1000/1250{% endif %}"
+        >
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          {% else %}
+            <img src="https://picsum.photos/seed/{{ product.id }}/250/310" alt="{{ product.name }}">
+          {% endif %}
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- ===== Product Information ===== -->
+    <div class="lg:sticky lg:top-24 self-start">
+
+      <span class="badge-static">
+        {{ product.category.name }}
+      </span>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-4">
+        {{ product.name }}
+      </h1>
+
+      <div class="flex items-center gap-3 mt-3">
+        <div class="stars">
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star-half"></i>
+        </div>
+        <span class="text-sm text-black/60">
+          Customer favourite
+        </span>
+      </div>
+
+      <!-- Price -->
+      <div class="flex items-baseline gap-3 mt-6">
+        <span class="text-3xl font-bold">
+          ₦{{ product.price|floatformat:2 }}
+        </span>
+      </div>
+
+      <!-- Stock Status -->
+      {% if product.stock > 0 and product.is_available %}
+
+        <span class="stock-badge in-stock mt-4">
+          <span class="dot"></span>
+          In Stock
+        </span>
+
+      {% else %}
+
+        <span class="stock-badge out-stock mt-4">
+          <span class="dot"></span>
+          Out of Stock
+        </span>
+
+      {% endif %}
+
+      <!-- Description -->
+      <p class="text-black/70 leading-relaxed mt-6">
+        {{ product.description }}
+      </p>
+
+      <!-- Add to Cart -->
+      <form method="POST" action="{% url 'cart_add' product.id %}" class="mt-8">
+
+        {% csrf_token %}
+
+        <div class="flex gap-3">
+
+          <div class="qty" data-qty>
+
+            <button
+              type="button"
+              data-qty-minus
+              aria-label="Decrease"
+            >
+              <i data-lucide="minus" class="w-4 h-4"></i>
+            </button>
+
+            <input
+              type="number"
+              value="1"
+              min="1"
+              max="{{ product.stock }}"
+              name="quantity"
+              aria-label="Quantity"
+            >
+
+            <button
+              type="button"
+              data-qty-plus
+              aria-label="Increase"
+            >
+              <i data-lucide="plus" class="w-4 h-4"></i>
+            </button>
+
+          </div>
+
+          <button
+            type="submit"
+            class="btn-primary flex-1 h-14 text-base"
+            {% if product.stock < 1 or not product.is_available %}disabled{% endif %}
+          >
+            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+            Add to Cart
+          </button>
+
+          <button
+            type="button"
+            class="wishlist"
+            data-wishlist
+            aria-label="Add to wishlist"
+          >
+            <i data-lucide="heart"></i>
+          </button>
+
+        </div>
+
+      </form>
+
+      <!-- Product Details -->
+      <dl class="detail-meta mt-8">
+
+        <div>
+          <dt>SKU</dt>
+          <dd>SH-{{ product.id }}</dd>
+        </div>
+
+        <div>
+          <dt>Category</dt>
+          <dd>{{ product.category.name }}</dd>
+        </div>
+
+        <div>
+          <dt>Share</dt>
+          <dd class="flex gap-3">
+
+            <a href="#" aria-label="Facebook">
+              <i data-lucide="share-2" class="w-4 h-4"></i>
+            </a>
+
+            <a href="#" aria-label="Twitter">
+              <i data-lucide="at-sign" class="w-4 h-4"></i>
+            </a>
+
+            <a href="#" aria-label="Instagram">
+              <i data-lucide="camera" class="w-4 h-4"></i>
+            </a>
+
+            <a href="#" aria-label="Copy link">
+              <i data-lucide="link" class="w-4 h-4"></i>
+            </a>
+
+          </dd>
+        </div>
+
+      </dl>
+
+      <!-- Delivery Perks -->
+      <div class="grid grid-cols-3 gap-3 mt-8 text-xs text-center">
+
+        <div class="perk">
+          <i data-lucide="truck" class="w-5 h-5"></i>
+          Free delivery
+        </div>
+
+        <div class="perk">
+          <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+          30-day returns
+        </div>
+
+        <div class="perk">
+          <i data-lucide="shield-check" class="w-5 h-5"></i>
+          Secure checkout
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Thumbnail Image Switching -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const mainImage = document.getElementById('main-image');
+
+    const thumbnails = document.querySelectorAll('[data-thumb]');
+
+    thumbnails.forEach(function (thumbnail) {
+
+        thumbnail.addEventListener('click', function () {
+
+            mainImage.src = this.dataset.thumb;
+
+            thumbnails.forEach(function (thumb) {
+                thumb.classList.remove('active');
+            });
+
+            this.classList.add('active');
+
+        });
+
+    });
+
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact — Shopify{% endblock %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+  <p class="eyebrow">Get in touch</p>
+  <h1 class="text-5xl sm:text-6xl font-extrabold tracking-tighter">We'd love to hear from you.</h1>
+
+  <div class="grid sm:grid-cols-3 gap-4 mt-12">
+    <div class="info-card reveal"><div class="feature-icon"><i data-lucide="mail"></i></div><h3 class="font-semibold">Email</h3><p class="text-black/60 text-sm mt-1">hello@shopify-store.com</p></div>
+    <div class="info-card reveal"><div class="feature-icon"><i data-lucide="phone"></i></div><h3 class="font-semibold">Phone</h3><p class="text-black/60 text-sm mt-1">+1 (555) 123-4567</p></div>
+    <div class="info-card reveal"><div class="feature-icon"><i data-lucide="map-pin"></i></div><h3 class="font-semibold">Address</h3><p class="text-black/60 text-sm mt-1">120 Mercer St, New York, NY</p></div>
+  </div>
+
+  <div class="grid lg:grid-cols-2 gap-10 mt-16">
+    <form id="contact-form" class="space-y-4" novalidate method="post">
+      {# {% csrf_token %} #}
+      <div class="form-group"><label for="c-name">Name</label><input id="c-name" name="name" class="field" required placeholder="Your name"><p class="error-msg">Please enter your name</p></div>
+      <div class="form-group"><label for="c-email">Email</label><input id="c-email" name="email" type="email" class="field" required placeholder="you@email.com"><p class="error-msg">Please enter a valid email</p></div>
+      <div class="form-group"><label for="c-msg">Message</label><textarea id="c-msg" name="message" rows="6" class="field" required placeholder="How can we help?"></textarea><p class="error-msg">Please write a message</p></div>
+      <button type="submit" class="btn-primary h-14 px-10">Send Message <i data-lucide="send" class="w-4 h-4"></i></button>
+    </form>
+    <!-- Map placeholder: replace with Google Maps iframe -->
+    <div class="map-placeholder">
+      <div class="text-center"><i data-lucide="map" class="w-10 h-10 mx-auto mb-3"></i><p class="font-semibold">Map goes here</p><p class="text-sm text-black/50">Embed a Google Maps iframe</p></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

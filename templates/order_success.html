@@ -1,0 +1,31 @@
+<h1>Order Successful!</h1>
+
+<p>Thank you for shopping with Shopint.</p>
+
+<p>Order Number: {{ order.order_number }}</p>
+
+<p>Customer: {{ order.full_name }}</p>
+
+<p>Email: {{ order.email }}</p>
+
+<p>Total: ₦{{ order.total_amount }}</p>
+
+<p>Status: {{ order.status }}</p>
+
+<h3>Items Purchased</h3>
+
+{% for item in order.items.all %}
+
+    <p>
+        {{ item.product.name }} x {{ item.quantity }}
+    </p>
+
+    <p>
+        ₦{{ item.get_subtotal }}
+    </p>
+
+{% endfor %}
+
+<a href="{% url 'home' %}">
+    Continue Shopping
+</a>

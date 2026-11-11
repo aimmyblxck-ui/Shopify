@@ -1,0 +1,240 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Shop All — Shopify{% endblock %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="{% url 'home' %}">Home</a>
+    <i data-lucide="chevron-right" class="w-3 h-3"></i>
+    <span>Shop</span>
+  </nav>
+
+  <div class="flex flex-wrap items-end justify-between gap-4 mt-4 mb-10">
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tighter">
+      Shop All
+    </h1>
+
+    <div class="flex items-center gap-3">
+      <button id="filter-toggle" class="lg:hidden btn-outline-sm">
+        <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+        Filters
+      </button>
+
+      <!-- Sorting -->
+      <select class="field-select" aria-label="Sort products">
+        <option>Sort: Featured</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
+        <option value="newest">Newest</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid lg:grid-cols-[260px_1fr] gap-10">
+
+    <!-- ===== Sidebar filters ===== -->
+    <aside id="filters" class="filters">
+
+      <form method="get">
+
+        <div class="filter-group">
+          <h3 class="filter-title">Category</h3>
+
+          <label class="check">
+            <input type="checkbox" name="category" value="clothing">
+            <span>Clothing</span>
+            <em>48</em>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" name="category" value="shoes">
+            <span>Shoes</span>
+            <em>24</em>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" name="category" value="accessories">
+            <span>Accessories</span>
+            <em>31</em>
+          </label>
+        </div>
+
+        <div class="filter-group">
+
+          <h3 class="filter-title">Shop by Category</h3>
+
+          {% for category in categories %}
+
+            <div class="mb-4">
+
+              <!-- Main Category -->
+              <a
+                href="?category={{ category.slug }}"
+                class="font-semibold block mb-2"
+              >
+                {{ category.name }}
+              </a>
+
+              <!-- Subcategories -->
+              {% for subcategory in category.subcategories.all %}
+
+                <a
+                  href="?category={{ subcategory.slug }}"
+                  class="block text-sm text-black/60 hover:text-black ml-4 mb-2"
+                >
+                  {{ subcategory.name }}
+                </a>
+
+              {% endfor %}
+
+            </div>
+
+          {% endfor %}
+
+          <a
+            href="{% url 'products' %}"
+            class="text-sm underline mt-3 inline-block"
+          >
+            View All Products
+          </a>
+
+        </div>
+
+        <div class="filter-group">
+
+          <h3 class="filter-title">Availability</h3>
+
+          <label class="check">
+            <input type="checkbox" name="stock" value="in">
+            <span>In Stock</span>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" name="stock" value="out">
+            <span>Out of Stock</span>
+          </label>
+
+        </div>
+
+        <button type="submit" class="btn-primary w-full">
+          Apply Filters
+        </button>
+
+      </form>
+
+    </aside>
+
+    <!-- ===== Product grid ===== -->
+    <div>
+
+      <p class="text-sm text-black/50 mb-6">
+        Showing {{ products|length }} products
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10">
+
+        {% for product in products %}
+
+          <article class="product-card reveal">
+
+            <!-- Product Image -->
+            <a
+              href="{% url 'product_detail' product.slug %}"
+              class="product-media"
+            >
+
+              {% if product.image %}
+
+                <img
+                  src="{{ product.image.url }}"
+                  alt="{{ product.name }}"
+                  class="img-primary w-full h-full object-cover"
+                  loading="lazy"
+                >
+
+              {% else %}
+
+                <img
+                  src="https://picsum.photos/seed/{{ product.id }}/600/800"
+                  alt="{{ product.name }}"
+                  class="img-primary w-full h-full object-cover"
+                  loading="lazy"
+                >
+
+              {% endif %}
+
+              <span class="badge">
+                {{ product.category.name }}
+              </span>
+
+            </a>
+
+            <!-- Add to Cart -->
+            <button
+              class="add-to-cart-btn"
+              data-add-to-cart
+              data-name="{{ product.name }}"
+              aria-label="Add {{ product.name }} to cart"
+            >
+              <i data-lucide="shopping-bag"></i>
+            </button>
+
+            <!-- Product Information -->
+            <div class="product-info">
+
+              <a href="{% url 'product_detail' product.slug %}">
+                <h3>{{ product.name }}</h3>
+              </a>
+
+              <p>
+                <span class="price">
+                  ₦{{ product.price|floatformat:2 }}
+                </span>
+              </p>
+
+              {% if product.stock > 0 %}
+
+                <span class="text-sm text-green-600">
+                  In Stock
+                </span>
+
+              {% else %}
+
+                <span class="text-sm text-red-600">
+                  Out of Stock
+                </span>
+
+              {% endif %}
+
+            </div>
+
+          </article>
+
+        {% empty %}
+
+          <div class="col-span-full text-center py-16">
+
+            <h3 class="text-xl font-bold">
+              No products available
+            </h3>
+
+            <p class="text-black/50 mt-2">
+              Please check back later.
+            </p>
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+{% endblock %}
